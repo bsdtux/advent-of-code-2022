@@ -1,6 +1,18 @@
 from file_reader.reader import InputReader
+import importlib
+import click
 
-input_reader = InputReader.read_day_input('day99', 'a')
+@click.command()
+@click.option('--day', prompt="Day to run", help="Which advent day to run", type=click.INT)
+@click.option('--part', prompt="Part of day to run", help="A or B", type=click.Choice(['a', 'b']))
+def runner(day, part):
+    try:
+        module = importlib.import_module(f"days.day{day}")
+        data = InputReader.read_day_input(f"day{day}", part)
+        print(f"Results: {module.run(part, data.data)}")
+    except ModuleNotFoundError as exc:
+        raise exc
 
 
-print(input_reader.data)
+if __name__ == '__main__':
+    runner()
