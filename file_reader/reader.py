@@ -10,8 +10,8 @@ class InputReader(object):
         self.data = data
 
     @classmethod
-    def read_day_input(cls, day: str, part: str):
-        file_name = f"{INPUT_DIR}/{day}_{part}.txt"
+    def read_day_input(cls, day: str):
+        file_name = f"{INPUT_DIR}/{day}.txt"
         with open(file_name) as f:
             data = [line.rstrip("\n") for line in f.readlines()]
         return cls(data)

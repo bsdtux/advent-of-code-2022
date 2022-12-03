@@ -8,7 +8,7 @@ import click
 def runner(day, part):
     try:
         module = importlib.import_module(f"days.day{day}")
-        data = InputReader.read_day_input(f"day{day}", part)
+        data = InputReader.read_day_input(f"day{day}")
         print(f"Results: {module.run(part, data.data)}")
     except ModuleNotFoundError as exc:
         raise exc
