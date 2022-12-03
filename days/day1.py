@@ -1,28 +1,28 @@
 from typing import List
 
 
-def get_highest_calorie_count(current_count, current_highest):
-    return max(current_count, current_highest)
-
-
-def a(data: List[str]) -> int:
-    highest_calorie_count = 0
+def get_ordered_calorie_count(data: List[str]) -> List[int]:
+    calorie_counts = []
     current_calorie_count = 0
 
     for calorie in data:
         if not calorie:
-            highest_calorie_count = get_highest_calorie_count(current_calorie_count, highest_calorie_count)
+            calorie_counts.append(current_calorie_count)
             current_calorie_count = 0
             continue
         current_calorie_count += int(calorie)
 
     # clear out any remaining calorie count
-    return get_highest_calorie_count(current_calorie_count, highest_calorie_count)
+    if current_calorie_count > 0:
+        calorie_counts.append(current_calorie_count)
+    calorie_counts.sort(reverse=True)
+    return calorie_counts
 
 
 def run(part: str, data: List[str]):
-    if part == 'a':
-        return a(data)
+    calorie_counts = get_ordered_calorie_count(data)
+    if part == "a":
+        return calorie_counts[0]
 
-    if part == 'b':
-        raise NotImplementedError("part b is not ")
+    if part == "b":
+        return sum(calorie_counts[:3])
